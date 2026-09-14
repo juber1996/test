@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #04060f;
+  --color-deep: #080c1c;
+  --color-panel: #0d1326;
+  --color-edge: #1c2542;
+  --color-ink: #e8ecff;
+  --color-muted: #8b96bd;
+  --color-cyan: #22d3ee;
+  --color-violet: #a78bfa;
+  --color-amber: #fbbf24;
+  --color-mint: #34d399;
+  --color-rose: #f472b6;
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --animate-drift: drift 220s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-sweep: sweep 2.2s linear infinite;
+  --animate-rise: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes drift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: 1200px 600px, -900px 400px, 600px -800px;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 45%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The starfield: three layers of dots at different sizes, drifting slowly. */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px, #ffffff55, transparent),
+    radial-gradient(1.5px 1.5px at 140px 90px, #b9c7ff66, transparent),
+    radial-gradient(1px 1px at 300px 210px, #ffffff33, transparent);
+  background-size: 400px 400px, 520px 520px, 680px 680px;
+  animation: var(--animate-drift);
+  opacity: 0.7;
+}
+
+.starfield::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      60rem 40rem at 15% -10%,
+      color-mix(in oklab, var(--color-violet) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50rem 34rem at 88% 8%,
+      color-mix(in oklab, var(--color-cyan) 16%, transparent),
+      transparent 70%
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
