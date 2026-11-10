@@ -120,7 +120,7 @@ def main():
               f"[bg][v]amix=inputs=2:duration=first:normalize=0[aout]")
         amap = "[aout]"
     else:
-        fc = "[1:a]aresample=48000,volume=1.6[aout]"
+        fc = f"[1:a]aresample=48000,volume=1.6,atrim=0:{total}[aout]"
         amap = "[aout]"
 
     # always save an .srt next to the output (can be uploaded to Facebook as captions)
